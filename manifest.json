@@ -1,0 +1,18 @@
+{
+  "name": "UL`s Vánoční Karty",
+  "short_name": "UL`s card",
+  "icons": [
+    {
+      "src": "https://card-ul.netlify.app/img/particle1.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://card-ul.netlify.app/img/particle1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone"
+}
