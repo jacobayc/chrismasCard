@@ -1,0 +1,9 @@
+body {
+  margin: 0; /* 캔버스 주변의 여백 제거 */
+  overflow: hidden; /* 캔버스 내용이 창 밖으로 나가지 않도록 설정 */
+  background-color: #000; /* 배경색 검정색으로 설정 (선택적) */
+}
+
+canvas {
+  display: block; /* 캔버스가 블록 요소로 표시되도록 설정 */
+}
