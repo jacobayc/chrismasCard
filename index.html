@@ -18,11 +18,50 @@
     <meta property="og:type" content="website" />
 </head>
 <body>
-    <div class="wrap">
-      <p><a href="#" onclick="location.reload(); return false;">HOME</a></p>
-      <p> <a href="https://wishlist-ul.netlify.app/">Wish List</a></p>
+  <div class="wrap">
+    <button class="toggle">on</button>
+    <div class="right-menu">
+        <p><a href="#" onclick="location.reload(); return false;">HOME</a></p>
+        <p><a href="https://wishlist-ul.netlify.app/">Wish List</a></p>
+    </div>
     </div>
     <canvas id="canvas"></canvas>
+    <audio id="christmas-music" src="./img/music.mp3" controls></audio>
     <script src="script.js"></script>
+    <script>
+      const music = document.getElementById('christmas-music');
+      const toggleButton = document.querySelector('.toggle'); // 클래스 선택자 사용
+
+      let isPlaying = false; // 현재 재생 상태
+      music.volume = 0.3;
+
+    toggleButton.addEventListener('click', () => {
+      if (isPlaying) {
+        music.pause();
+        toggleButton.textContent = 'on'; // 버튼 텍스트 변경
+      } else {
+        music.play().catch(error => {
+          console.error("음악 재생 실패:", error);
+          // 사용자 인터랙션 후 재생 시도 (모바일 대응)
+          document.addEventListener('click', function playAfterClick() {
+            music.play();
+            document.removeEventListener('click', playAfterClick);
+          });
+          document.addEventListener('touchstart', function playAfterTouch() {
+            music.play();
+            document.removeEventListener('touchstart', playAfterTouch);
+          });
+        });
+        toggleButton.textContent = 'off';
+      }
+      isPlaying = !isPlaying;
+    });
+  
+      // 페이지 로딩 시 음악 재생 오류 방지 (선택사항)
+      window.addEventListener('load', () => {
+        // music.play();
+      });
+      
+    </script>
 </body>
 </html>
