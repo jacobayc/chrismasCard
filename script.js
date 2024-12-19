@@ -17,6 +17,18 @@ const images = [
     'img/particle5.png',
     'img/particle6.png',
     'img/particle7.png',
+    'img/particle8.png',
+    'img/particle9.png',
+    'img/particle10.png',
+    'img/particle11.png',
+    'img/particle12.png',
+    'img/particle13.png',
+    'img/particle14.png',
+    'img/particle15.png',
+    'img/particle16.png',
+    'img/particle17.png',
+    'img/particle18.png',
+    'img/particle19.png',
 ];
 
 // 배경 이미지 관련 변수 추가
@@ -28,7 +40,7 @@ bgImage.onload = () => {
 };
 
 class Particle {
-      constructor() {
+      constructor(imageSrc) {
         this.size = Math.random() * 30 + 10;
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
@@ -39,7 +51,8 @@ class Particle {
         this.speedY = (Math.random() - 0.5) * 2 * initialSpeed;
 
         this.image = new Image();
-        this.image.src = images[Math.floor(Math.random() * images.length)];
+        // this.image.src = images[Math.floor(Math.random() * images.length)];
+        this.image.src = imageSrc
         this.loaded = false;
         this.image.onload = () => {
             this.loaded = true;
@@ -68,7 +81,7 @@ class Particle {
       }
 
       // 반발력 계산 (특정 반경 내에서만 작용)
-      const interactionRadius = 100; // 상호작용 반경
+      const interactionRadius = 200; // 상호작용 반경
 
       if (currentX !== null && currentY !== null) {
           const dx = currentX - this.x;
@@ -106,16 +119,22 @@ class Particle {
 
   draw() {
     if (this.loaded) {
-        let width = this.size;
-        let height = this.size;
+      //이미지 원본 비율 계산
+      const aspectRatio = this.image.width / this.image.height;
 
-        if (this.image.src.includes('particle7.png')) { // particle7 이미지인 경우
-            // 세로 비율 조정 (예: 세로를 2배로)
-            height = this.size * 2; // 세로를 가로의 2배로 설정
-            // 또는 특정 값으로 설정
-            // height = 60;
-            // width = 30;
-        }
+      let width = this.size;
+      let height = this.size;
+
+          width = this.size * 3
+          height = width / aspectRatio
+        // height = this.size * 2;
+        // if (this.image.src.includes('particle7.png')) {
+        //     // 세로 비율 조정 (예: 세로를 2배로)
+        //     height = this.size * 2; // 세로를 가로의 2배로 설정
+        //     // 또는 특정 값으로 설정
+        //     // height = 60;
+        //     // width = 30;
+        // }
 
         ctx.drawImage(this.image, this.x - width / 2, this.y - height / 2, width, height);
     }
@@ -125,8 +144,8 @@ class Particle {
 function init() {
     particles = [];
 
-    for (let i = 0; i < 300; i++) {
-        particles.push(new Particle()); // 나머지 파티클 생성
+    for (let i = 0; i < 19; i++) {
+        particles.push(new Particle(images[i])); // 나머지 파티클 생성
     }
 }
 
@@ -171,10 +190,10 @@ function drawBackground() {
       const canvasHeight = canvas.height;
 
       // 위아래 여백 설정
-      const verticalPadding = 100;
+      const verticalPadding = 120;
 
       // 그릴 이미지의 높이 계산 (위아래 여백을 뺀 값)
-      const drawHeight = canvasHeight - 2 * verticalPadding;
+      const drawHeight = canvasHeight-100 - 2 * verticalPadding;
 
       // 이미지 비율 유지하면서 높이에 맞추기
       const drawWidth = (drawHeight / bgHeight) * bgWidth;
